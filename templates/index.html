@@ -1,12 +1,6 @@
-<!doctype html>
-<html>
-<body>
-<p>
-    Hi there! <br/>
-    This tool will help estimate your localization vendor costs and throughputs.<br/><br/>
-    Let's get started.
-</p>
-</body>
+{% extends "base.html" %}
+
+{% block content %}
 <form action="http://localhost:5000/vendorInput" method="post">
     <body>
     <p>
@@ -17,9 +11,29 @@
         TDC+LQS<br/>
         MOR-only
     </p>
-
     <p><input type="text" name="vendor"/></p>
     <p><input type="submit" value="submit"/></p>
     </body>
 </form>
-</html>
+
+<form action="http://localhost:5000/languageInput" method="post">
+    <p>Which language(s)? Type in this format: ESLA, DEDE</p>
+    <p><input type="text" name="languages"/></p>
+    <p><input type="submit" value="submit"/></p>
+    </body>
+</form>
+
+<form action="http://localhost:5000/projectTypeInput" method="post">
+    <p>Is this project for Marketing or Product? (M/P)</p>
+    <p><input type="text" name="projectTypes"/></p>
+    <p><input type="submit" value="submit"/></p>
+</form>
+
+<form action="http://localhost:5000/" method="post">
+    <p>Number of new words:</p>
+    <p><input type="text" name="numberOfNewWords"/></p>
+    <p><input type="submit" value="submit"/></p>
+</form>
+
+
+{% endblock %}

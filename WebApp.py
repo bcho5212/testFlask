@@ -60,36 +60,6 @@ def request_number_of_new_words():
     return render_template('requestNumberOfNewWords.html', appDict=appDict)
 
 
-@app.route('/vendorInput', methods=['POST'])
-def vendor_check():
-    input_vendor = request.form['vendor']
-    if check_vendor(input_vendor, validVendors):
-        appDict.update(vendor_name=input_vendor)
-        return redirect(url_for('request_language', appDict=appDict))
-    else:
-        return redirect(url_for('request_valid_vendor'))
-
-
-@app.route('/languageInput', methods=['POST'])
-def language_check():
-    input_languages = request.form['languages']
-    if check_vendor(input_languages, validLanguages):
-        appDict.update(languages=input_languages)
-        return redirect(url_for('request_project_type', appDict=appDict))
-    else:
-        return redirect(url_for('request_valid_language', appDict=appDict))
-
-
-@app.route('/projectTypeInput', methods=['POST'])
-def project_type_check():
-    input_project_types = request.form['projectTypes']
-    if check_project_type(input_project_types, validProjectTypes):
-        appDict.update(project_type=input_project_types)
-        return redirect(url_for('request_number_of_new_words', appDict=appDict))
-    else:
-        return redirect(url_for('request_valid_project_type', appDict=appDict))
-
-
 @app.route('/calculatedRates', methods=['GET'])
 def calculate_rates():
     calc = RateCalculator(appDict)
