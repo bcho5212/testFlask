@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<form action="http://localhost:5000/languageInput" method="post">
+    <body>
+    {% for key, value in appDict.items() %}
+    <h1>
+        <p> {{ key }}: {{ value }} </p>
+    </h1>
+    {% endfor %}
+    <p>Sorry, this isn't a valid language. Can you try again?</p>
+    <p>Which language(s)? Type in this format: ESLA, DEDE</p>
+
+    <p><input type="text" name="languages"/></p>
+    <p><input type="submit" value="submit"/></p>
+    </body>
+</form>
+</html>

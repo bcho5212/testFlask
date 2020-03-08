@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<form action="http://localhost:5000/projectTypeInput" method="post">
+    <body>
+    {% for key, value in appDict.items() %}
+    <h1>
+        <p> {{ key }}: {{ value }} </p>
+    </h1>
+    {% endfor %}
+    <p>Is this project for Marketing or Product? (M/P)</p>
+
+    <p><input type="text" name="projectTypes"/></p>
+    <p><input type="submit" value="submit"/></p>
+    </body>
+</form>
+</html>

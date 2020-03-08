@@ -1,0 +1,55 @@
+- vendor:
+    name: LB
+    language_rates:
+      - ARAR:
+          new_words: 0.25
+          low_fuzzies: 0.15
+          high_fuzzies: 0.2
+          reps: 0.05
+          hundred_matches: 0.05
+          context_matches: 0.05
+          review: 0.085
+          preflight: 38
+          dtp: 38
+          lso: 46
+          pm_rate: 0.09
+      - ZHCN:
+          new_words: 0.55
+          low_fuzzies: 0.15
+          high_fuzzies: 0.2
+          reps: 0.05
+          hundred_matches: 0.05
+          context_matches: 0.05
+          review: 0.085
+          preflight: 38
+          dtp: 38
+          lso: 46
+          pm_rate: 0.09
+
+- vendor:
+    name: MOR-only
+    language_rates:
+      - ARAR:
+          new_words: 0.25
+          low_fuzzies: 0.15
+          high_fuzzies: 0.2
+          reps: 0.05
+          hundred_matches: 0.05
+          context_matches: 0.05
+          review: 0.085
+          preflight: 38
+          dtp: 38
+          lso: 46
+          pm_rate: 0.09
+      - ZHCN:
+          new_words: 0.25
+          low_fuzzies: 0.15
+          high_fuzzies: 0.2
+          reps: 0.05
+          hundred_matches: 0.05
+          context_matches: 0.05
+          review: 0.085
+          preflight: 38
+          dtp: 38
+          lso: 46
+          pm_rate: 0.09

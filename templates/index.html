@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<body>
+<p>
+    Hi there! <br/>
+    This tool will help estimate your localization vendor costs and throughputs.<br/><br/>
+    Let's get started.
+</p>
+</body>
+<form action="http://localhost:5000/vendorInput" method="post">
+    <body>
+    <p>
+        Which vendor(s) are you using? Please type one of the following:<br/>
+        LB+MOR<br/>
+        TDC+MOR<br/>
+        LB+LQS<br/>
+        TDC+LQS<br/>
+        MOR-only
+    </p>
+
+    <p><input type="text" name="vendor"/></p>
+    <p><input type="submit" value="submit"/></p>
+    </body>
+</form>
+</html>
