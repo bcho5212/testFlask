@@ -3,7 +3,7 @@ from wtforms import StringField, RadioField, IntegerField, SubmitField
 
 
 class VendorDetailsForm(Form):
-    name = RadioField("Name of Vendor", choices=[
+    vendor_name = RadioField("Name of Vendor", choices=[
         ('LB+MOR', 'LB+MOR'),
         ('TDC+MOR', 'TDC+MOR'),
         ('LB+LQS', 'LB+LQS'),

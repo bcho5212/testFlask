@@ -5,9 +5,10 @@ class Validator:
     validAnswer = ["Y", "N", "y", "n"]
     validProjectTypes = ["M", "P", "m", "p"]
 
-    vendor_name_check = True
-    vendor_languages_check = True
-    vendor_project_type_check = True
+    def __init__(self):
+        self.vendor_name_check = True
+        self.vendor_languages_check = True
+        self.vendor_project_type_check = True
 
     def validate_self(self, appDict):
         self.validate_vendor_name(appDict["vendor_name"])
@@ -15,13 +16,20 @@ class Validator:
         self.validate_project_type(appDict["project_type"])
 
     def validate_vendor_name(self, vendor_name_input):
-        if any(item in vendor_name_input for item in self.validVendors):
+        if vendor_name_input in self.validVendors:
             pass
         else:
             self.vendor_name_check = False
 
     def validate_languages(self, language_input):
-        self.vendor_languages_check = False
+        languages = language_input.split(',')
+        if any(language in languages for language in self.validLanguages):
+            pass
+        else:
+            self.vendor_languages_check = False
 
     def validate_project_type(self, project_type_input):
-        self.vendor_project_type_check = False
+        if project_type_input in self.validProjectTypes:
+            pass
+        else:
+            self.vendor_project_type_check = False

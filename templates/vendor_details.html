@@ -3,10 +3,13 @@
 {% block content %}
 <form action="http://localhost:5000/vendor_details" method="post">
     <div>
-        {{ form.name.label }}<br>
+        {{ form.vendor_name.label }}<br>
         Please choose from the following:<br>
-        {{ form.name }}
+        {{ form.vendor_name }}
         <hr>
+        {% if invalid_input is defined and invalid_input.languages|length %}
+        <div>{{ invalid_input.languages }}</div>
+        {% endif %}
         {{ form.languages.label }}: {{ form.languages }}
         <hr>
         {{ form.project_type.label }}<br>
@@ -16,5 +19,10 @@
         <hr>
         {{ form.submit }}
     </div>
+    {% if calc_results is defined and calc_results|length %}
+    {% for key, value in calc_results.items() %}
+    <p>{{ key }}: {{ value }}</p>
+    {% endfor %}
+    {% endif %}
 </form>
 {% endblock %}

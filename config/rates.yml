@@ -1,5 +1,5 @@
 - vendor:
-    name: LB
+    name: LB+MOR
     language_rates:
       - ARAR:
           new_words: 0.25
