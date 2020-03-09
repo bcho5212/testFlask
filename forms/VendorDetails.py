@@ -16,4 +16,5 @@ class VendorDetailsForm(Form):
         ('P', 'Product')
     ])
     new_words = IntegerField("Number of New Words")
+    low_fuzzies = IntegerField("Low Fuzzies")
     submit = SubmitField("Submit")

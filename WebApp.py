@@ -34,6 +34,7 @@ def vendor_details():
         appDict.update(languages=form.languages.data)
         appDict.update(project_type=form.project_type.data)
         appDict.update(new_words=form.new_words.data)
+        appDict.update(low_fuzzies=form.low_fuzzies.data)
 
         # TODO: Cleanup
         # Remove this for loop when the app is completed

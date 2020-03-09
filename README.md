@@ -33,6 +33,7 @@ Only the following languages are configured and will return results:
 Only the following outputs are dynamic:
 - newWordCost
 - reviewCost
+- lowFuzziesCost
 
 The webapp will NOT validate integer values - This functionality needs to be added
 
