@@ -3,7 +3,9 @@
 This is a test webApp that calculates vendor rates based on user input using fake data
 
 Get the URL from the Clone / Download link in this project
+
 In Pycharm's top navigation bar, click VCS -> Checkout From Version Control -> Git
+
 Paste the URL into the prompt and clone the repo
 
 After importing the project, make sure you have all requirements installed:
