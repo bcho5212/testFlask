@@ -9,6 +9,8 @@ In Pycharm's top navigation bar, click VCS -> Checkout From Version Control -> G
 Paste the URL into the prompt and clone the repo
 
 After importing the project, make sure you have all requirements installed:
+- If you need to configure the project's python interpreter again, just add a new Virtualenv Environment to the project
+  - Preferences -> Project Interpreter -> Settings Wheel -> Add -> OK
 - If you expand the 'Terminal' tab on the bottom of the pycharm editor, you should see (venv)
   - If you don't, make sure you are in the testFlask directory and run -> source ./venv/bin/activate
   - In the virtual environment, run -> pip install -r stable-req.txt
