@@ -2,8 +2,14 @@
 
 This is a test webApp that calculates vendor rates based on user input using fake data
 
+Get the URL from the Clone / Download link in this project
+In Pycharm's top navigation bar, click VCS -> Checkout From Version Control -> Git
+Paste the URL into the prompt and clone the repo
+
 After importing the project, make sure you have all requirements installed:
-- In the virtual environment, run -> pip install -r stable-req.txt
+- If you expand the 'Terminal' tab on the bottom of the pycharm editor, you should see (venv)
+  - If you don't, make sure you are in the testFlask directory and run -> source ./venv/bin/activate
+  - In the virtual environment, run -> pip install -r stable-req.txt
 
 Run WebApp.py
 
