@@ -1,8 +1,10 @@
-from ConfigLoader import *
+from App.ConfigLoader import ConfigLoader
+from App.Validator import Validator
 
 
-class RateCalculator:
+class RateCalculator(Validator):
     def __init__(self, appDict):
+        self.appDict = appDict
         self.vendor_name = appDict["vendor_name"]
         self.languages = appDict["languages"].split(',')
         self.project_type = appDict["project_type"]
@@ -61,6 +63,9 @@ class RateCalculator:
         self.language_costs["preflightCost"] = preflightCost
         self.language_costs["DTPCost"] = DTPCost
         self.language_costs["LSOCost"] = LSOCost
+
+    def validate_input(self, ):
+        self.validate_self(self.appDict)
 
 
 if __name__ == '__main__':
