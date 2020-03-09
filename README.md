@@ -21,7 +21,8 @@ Open a browser window and navigate to:
 
 http://localhost:5000/
 
-Currently - Only the following Vendors are configured and will return results:
+Currently:
+Only the following Vendors are configured and will return results:
 - LB+MOR
 - MOR-Only
 
@@ -32,5 +33,7 @@ Only the following languages are configured and will return results:
 Only the following outputs are dynamic:
 - newWordCost
 - reviewCost
+
+The webapp will NOT validate integer values - This functionality needs to be added
 
 The rest are hard-coded to calculate based off of [rate] * 1 - Check the TODO in WebApp.py Line 38
