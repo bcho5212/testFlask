@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="http://localhost:5000/vendor_details" method="post">
+    <div>
+        {{ form.vendor_name.label }}<br>
+        Please choose from the following:<br>
+        {{ form.vendor_name }}
+        <hr>
+        {% if invalid_input is defined and invalid_input.languages|length %}
+        <div>{{ invalid_input.languages }}</div>
+        {% endif %}
+        {{ form.languages.label }}: {{ form.languages }}
+        <hr>
+        {{ form.project_type.label }}<br>
+        {{ form.project_type }}
+        <hr>
+        {{ form.new_words.label }}: {{ form.new_words }}
+        <hr>
+        {{ form.submit }}
+    </div>
+    {% if calc_results is defined and calc_results|length %}
+    {% for key, value in calc_results.items() %}
+    <p>{{ key }}: {{ value }}</p>
+    {% endfor %}
+    {% endif %}
+</form>
+{% endblock %}

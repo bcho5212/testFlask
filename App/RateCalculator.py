@@ -1,8 +1,11 @@
-from ConfigLoader import *
+from App.ConfigLoader import ConfigLoader
+from App.Validator import Validator
 
 
-class RateCalculator:
+class RateCalculator(Validator):
     def __init__(self, appDict):
+        Validator.__init__(self)
+        self.appDict = appDict
         self.vendor_name = appDict["vendor_name"]
         self.languages = appDict["languages"].split(',')
         self.project_type = appDict["project_type"]
@@ -15,6 +18,7 @@ class RateCalculator:
         self.pre_flight_hours = int(appDict["pre_flight_hours"])
         self.dtp_hours = int(appDict["dtp_hours"])
         self.language_costs = {}
+        self.rates = {}
 
     def run(self):
         config = ConfigLoader('rates')
@@ -34,23 +38,27 @@ class RateCalculator:
         i = 0
         while i < len(vendor.rates):
             try:
-                rates = vendor.rates[i][language]
+                self.rates = vendor.rates[i][language]
                 break
             except:
                 i += 1
-        newWordsCost = float(rates["new_words"]) * self.new_words
-        lowFuzziesCost = float(rates["low_fuzzies"]) * self.low_fuzzies
-        highFuzziesCost = float(rates["high_fuzzies"]) * self.high_fuzzies
-        repsCost = float(rates["reps"]) * self.reps
-        hundredMatchesCost = float(rates["hundred_matches"]) * self.hundred_matches
-        contextMatchesCost = float(rates["context_matches"]) * self.context_matches
-        reviewCost = float(rates["review"]) * totalWC
-        preflightCost = float(rates["preflight"]) * self.pre_flight_hours
-        DTPCost = float(rates["dtp"]) * self.dtp_hours
+        if not self.rates:
+            raise ValueError(
+                "Language={0} is not set up for this vendor={1} in the rates.yml config file.".format(language, vendor))
+
+        newWordsCost = float(self.rates["new_words"]) * self.new_words
+        lowFuzziesCost = float(self.rates["low_fuzzies"]) * self.low_fuzzies
+        highFuzziesCost = float(self.rates["high_fuzzies"]) * self.high_fuzzies
+        repsCost = float(self.rates["reps"]) * self.reps
+        hundredMatchesCost = float(self.rates["hundred_matches"]) * self.hundred_matches
+        contextMatchesCost = float(self.rates["context_matches"]) * self.context_matches
+        reviewCost = float(self.rates["review"]) * totalWC
+        preflightCost = float(self.rates["preflight"]) * self.pre_flight_hours
+        DTPCost = float(self.rates["dtp"]) * self.dtp_hours
         if totalWC <= 250:
-            LSOCost = float(rates["lso"]) / 2
+            LSOCost = float(self.rates["lso"]) / 2
         if totalWC >= 250:
-            LSOCost = float(rates["lso"]) * totalWC / 500
+            LSOCost = float(self.rates["lso"]) * totalWC / 500
         self.language_costs["newWordCost"] = newWordsCost
         self.language_costs["lowFuzziesCost"] = lowFuzziesCost
         self.language_costs["highFuzziesCost"] = highFuzziesCost
@@ -61,6 +69,9 @@ class RateCalculator:
         self.language_costs["preflightCost"] = preflightCost
         self.language_costs["DTPCost"] = DTPCost
         self.language_costs["LSOCost"] = LSOCost
+
+    def validate_input(self):
+        self.validate_self(self.appDict)
 
 
 if __name__ == '__main__':

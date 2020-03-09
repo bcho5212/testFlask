@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<body>
+<p>
+    Hi there! <br/>
+    This tool will help estimate your localization vendor costs and throughputs.<br/><br/>
+    Let's get started.
+</p>
+
+{% if invalid_input is defined and invalid_input.missing_inputs|length %}
+<div>{{ invalid_input.missing_inputs }}</div>
+{% endif %}
+
+<p>
+    {% block content %}{% endblock %}
+</p>
+</body>
+</html>

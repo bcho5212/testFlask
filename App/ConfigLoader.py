@@ -1,5 +1,6 @@
 import logging
 import pathlib
+
 import yaml
 
 from vendors.BaseVendor import BaseVendor

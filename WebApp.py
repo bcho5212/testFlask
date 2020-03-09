@@ -1,15 +1,12 @@
 from flask import *
+import logging
 
-from RateCalculator import *
+from App.RateCalculator import *
+from env.config import Config
+from forms.VendorDetails import VendorDetailsForm
 
 app = Flask(__name__)
-
-validVendors = ["LB", "LB+MOR", "TDC+MOR", "LB+LQS", "TDC+LQS", "MOR-only"]
-validLanguages = ["ARAR", "ZHCN", "ZHTW", "FRFR", "DEDE", "ITIT", "JAJP", "KOKR", "PTBR", "ESLA", "arar", "zhcn",
-                  "zhtw", "frfr", "dede", "itit", "jajp", "kokr", "ptbr", "esla"]
-validAnswer = ["Y", "N", "y", "n"]
-validProjectTypes = ["M", "P", "m", "p"]
-
+app.config.from_object(Config)
 keyList = ["vendor_name",
            "languages",
            "project_type",
@@ -25,75 +22,41 @@ keyList = ["vendor_name",
 appDict = {key: None for key in keyList}
 
 
-@app.route('/welcome')
-def welcome_page():
-    return render_template('index.html')
 
+@app.route('/')
+@app.route('/vendor_details', methods=['GET', 'POST'])
+def vendor_details():
+    form = VendorDetailsForm()
+    invalid_input = {}
 
-@app.route('/requestValidVendor')
-def request_valid_vendor():
-    return render_template('requestValidVendor.html')
+    if request.method == "POST":
+        appDict.update(vendor_name=form.vendor_name.data)
+        appDict.update(languages=form.languages.data)
+        appDict.update(project_type=form.project_type.data)
+        appDict.update(new_words=form.new_words.data)
 
+        # TODO: Cleanup
+        # Remove this for loop when the app is completed
+        # This is solely for testing purposes - We should be throwing an error
+        # if the appDict is not complete with all values
+        for key, value in appDict.items():
+            if value is None:
+                appDict[key] = 1
+        ###############################################
 
-@app.route('/requestLanguage')
-def request_language():
-    return render_template('requestLanguage.html', appDict=appDict)
-
-
-@app.route('/requestValidLanguage')
-def request_valid_language():
-    return render_template('requestValidLanguage.html', appDict=appDict)
-
-
-@app.route('/requestProjectType')
-def request_project_type():
-    return render_template('requestProjectType.html', appDict=appDict)
-
-
-@app.route('/requestValidProjectType')
-def request_valid_project_type():
-    return render_template('requestValidProjectType.html', appDict=appDict)
-
-
-@app.route('/requestNumberOfNewWords')
-def request_number_of_new_words():
-    return render_template('requestNumberOfNewWords.html', appDict=appDict)
-
-
-@app.route('/vendorInput', methods=['POST'])
-def vendor_check():
-    input_vendor = request.form['vendor']
-    if check_vendor(input_vendor, validVendors):
-        appDict.update(vendor_name=input_vendor)
-        return redirect(url_for('request_language', appDict=appDict))
+        if any(value is None for value in appDict.values()):
+            invalid_input.update(missing_inputs='All fields are required - Make sure you have populated all fields')
+            return render_template('vendor_details.html', form=form, invalid_input=invalid_input)
+        else:
+            calculator = RateCalculator(appDict)
+            calculator.validate_input()
+            if not calculator.vendor_languages_check:
+                invalid_input.update(languages='"{0}" is not in our list of valid languages.'.format(form.languages.data))
+                return render_template('vendor_details.html', form=form, invalid_input=invalid_input)
+            calculator.run()
+            return render_template('vendor_details.html', form=form, calc_results=calculator.language_costs)
     else:
-        return redirect(url_for('request_valid_vendor'))
-
-
-@app.route('/languageInput', methods=['POST'])
-def language_check():
-    input_languages = request.form['languages']
-    if check_vendor(input_languages, validLanguages):
-        appDict.update(languages=input_languages)
-        return redirect(url_for('request_project_type', appDict=appDict))
-    else:
-        return redirect(url_for('request_valid_language', appDict=appDict))
-
-
-@app.route('/projectTypeInput', methods=['POST'])
-def project_type_check():
-    input_project_types = request.form['projectTypes']
-    if check_project_type(input_project_types, validProjectTypes):
-        appDict.update(project_type=input_project_types)
-        return redirect(url_for('request_number_of_new_words', appDict=appDict))
-    else:
-        return redirect(url_for('request_valid_project_type', appDict=appDict))
-
-
-@app.route('/calculatedRates', methods=['GET'])
-def calculate_rates():
-    calc = RateCalculator(appDict)
-    calc.run()
+        return render_template('vendor_details.html', form=form)
 
 
 if __name__ == '__main__':
